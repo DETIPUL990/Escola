@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crônicas do Futebol Australiano</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #000000;
+            overflow-x: hidden;
+            padding-bottom: 100px;
+        }
+
+        header {
+            background-image: linear-gradient(rgba(26, 26, 26, 0.75), rgba(26, 26, 26, 0.75)), url('assets/background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            padding: 40px 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #e6e6e6;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .timeline {
+            max-width: 1000px;
+            margin: 50px auto;
+            position: relative;
+            padding: 0 20px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #d4af37, #1a1a1a);
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        .event-block {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 120px;
+            position: relative;
+            z-index: 2;
+            width: 100%;
+        }
+
+        .event-block:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .comic-card {
+            width: 45%;
+            background: #fdfbf7;
+            padding: 30px;
+            border: 1px solid #e0dabf;
+            box-shadow: 5px 5px 0px #d4af37, 10px 10px 20px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .comic-card::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            width: 80px;
+            height: 25px;
+            background-color: rgba(212, 175, 55, 0.25);
+            transform: rotate(-5deg);
+            border-left: 2px dashed rgba(0,0,0,0.1);
+            border-right: 2px dashed rgba(0,0,0,0.1);
+        }
+
+        .comic-card h2 {
+            color: #d4af37;
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #1a1a1a;
+            padding-bottom: 5px;
+        }
+
+        .comic-card p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #000000;
+            text-align: justify;
+        }
+
+        .comic-card .date {
+            display: inline-block;
+            background-color: #1a1a1a;
+            color: #d4af37;
+            padding: 3px 10px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+
+        .image-container {
+            width: 45%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .image-container img {
+            width: 100%;
+            max-width: 380px;
+            height: auto;
+            border: 12px solid #ffffff;
+            border-bottom: 45px solid #ffffff;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            transform: rotate(-2deg);
+            background-color: #eee;
+        }
+
+        .event-block:nth-child(even) .image-container img {
+            transform: rotate(2deg);
+        }
+
+        @keyframes flyInLeft {
+            from {
+                transform: translateX(-150px) rotate(-10deg);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0) rotate(-2deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes flyInRight {
+            from {
+                transform: translateX(150px) rotate(10deg);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0) rotate(2deg);
+                opacity: 1;
+            }
+        }
+
+        .animate-left img {
+            animation: flyInLeft linear both;
+            animation-timeline: view();
+            animation-range: entry 10% cover 40%;
+        }
+
+        .animate-right img {
+            animation: flyInRight linear both;
+            animation-timeline: view();
+            animation-range: entry 10% cover 40%;
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before { left: 20px; transform: none; }
+            .event-block, .event-block:nth-child(even) { flex-direction: column; align-items: flex-start; gap: 30px; }
+            .comic-card, .image-container { width: 100%; padding-left: 20px; }
+            .image-container { justify-content: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Crônicas do Futebol Australiano (Socceroos)</h1>
+    </header>
+
+    <main class="timeline">
+
+        <div class="event-block">
+            <div class="comic-card">
+                <span class="date">14/08/1880</span>
+                <h2>As Origens no Século XIX</h2>
+                <p>O primeiro registro oficial de uma partida de futebol na Austrália ocorreu em 1880, entre o Wanderers e o King's School. O esporte começou a fincar suas raízes em solo britânico ultramarino, disputando espaço com o críquete e o rúgbi.</p>
+            </div>
+            <div class="image-container animate-right">
+                <img src="assets/rangers_primeira_formacao.png" alt="Origens do futebol na Austrália">
+            </div>
+        </div>
+
+        <div class="event-block">
+            <div class="comic-card">
+                <span class="date">17/06/1922</span>
+                <h2>A Primeira Seleção Nacional</h2>
+                <p>A Austrália formou sua primeira equipe nacional para uma turnê na Nova Zelândia em 1922. Embora tenham perdido a série de jogos, ali nascia o espírito de união que mais tarde seria batizado oficialmente como os "Socceroos".</p>
+            </div>
+            <div class="image-container animate-left">
+                <img src="assets/primeiro_time.jpg" alt="Primeiro time australiano de 1922">
+            </div>
+        </div>
+
+        <div class="event-block">
+            <div class="comic-card">
+                <span class="date">16/11/2005</span>
+                <h2>A Classificação Histórica</h2>
+                <p>Após 32 anos de ausência em Copas do Mundo, o goleiro Mark Schwarzer defendeu os pênaltis decisivos contra o Uruguai em Sydney. O feito colocou a Austrália na Copa de 2006 e mudou para sempre o patamar do esporte no país.</p>
+            </div>
+            <div class="image-container animate-right">
+                <img src="assets/classificacao_2005.jpg" alt="Classificação Copa de 2006">
+            </div>
+        </div>
+
+        <div class="event-block">
+            <div class="comic-card">
+                <span class="date">31/01/2015</span>
+                <h2>Campões da Ásia</h2>
+                <p>Jogando em casa, os Socceros conquistaram o seu maior título continental ao vencer a Coreia do Sul na prorrogação da final da Copa da Ásia de 2015, consolidando sua migração estratégica para a federação asiática.</p>
+            </div>
+            <div class="image-container animate-left">
+                <img src="assets/campeoes_asia.jpg" alt="Austrália campeã da ásia 2015">
+            </div>
+        </div>
+
+    </main>
+
+</body>
+</html>
+
+
