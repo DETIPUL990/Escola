@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estande Austrália 8A Manhã</title>
+    <style>
+        @font-face {
+            font-family: 'Virbur';
+            src: url('assets/Vibur-Regular.ttf') format('truetype');
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html, body {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-image: url('assets/newbackground.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #000000;
+            overflow-x: hidden;
+        }
+
+        header {
+            background-image: linear-gradient(rgba(0, 36, 125, 0.8), rgba(0, 36, 125, 0.8)), url('assets/australia.gif');
+            background-size: cover;
+            background-position: center;
+            background-color: #00247d;
+            color: #ffffff;
+            padding: 15px 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            width: 100%;
+        }
+
+        header h1 {
+            font-family: 'Virbur', 'Segoe UI', Tahoma, sans-serif;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #ffffff;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            margin-bottom: 12px;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .tab-btn {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            border: 2px solid #ffffff;
+            padding: 6px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            min-width: 120px;
+        }
+
+        .tab-icon {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+        }
+
+        .tab-btn:hover {
+            background-color: #b2001a;
+            border-color: #b2001a;
+            color: #ffffff;
+        }
+
+        .tab-btn.active {
+            background-color: #ffffff;
+            color: #00247d;
+            border-color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .tab-btn.active:hover {
+            color: #ffffff;
+        }
+
+        .tab-content {
+            display: none;
+            width: 100%;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .invitation-banner {
+            max-width: 1000px;
+            margin: 40px auto 10px auto;
+            background: #ffffff;
+            border: 2px dashed #00247d;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .invitation-banner h3 {
+            color: #b2001a;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .invitation-banner p {
+            font-size: 1rem;
+            color: #000000;
+            line-height: 1.5;
+        }
+
+        .invitation-banner .highlight {
+            font-weight: bold;
+            color: #00247d;
+        }
+
+        .timeline {
+            max-width: 1000px;
+            margin: 50px auto;
+            position: relative;
+            padding: 0 20px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #00247d, #b2001a);
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        .event-block {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 120px;
+            position: relative;
+            z-index: 2;
+            width: 100%;
+        }
+
+        .event-block:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .comic-card {
+            width: 45%;
+            background: #ffffff;
+            padding: 30px;
+            border: 1px solid #e0e0e0;
+            box-shadow: 6px 6px 0px #00247d, 10px 10px 25px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .comic-card::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            width: 80px;
+            height: 25px;
+            background-color: rgba(0, 36, 125, 0.1);
+            transform: rotate(-5deg);
+            border-left: 2px dashed rgba(0,0,0,0.05);
+            border-right: 2px dashed rgba(0,0,0,0.05);
+        }
+
+        .comic-card h2 {
+            color: #00247d;
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #b2001a;
+            padding-bottom: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        .comic-card p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #000000;
+            text-align: justify;
+        }
+
+        .comic-card .date {
+            display: inline-block;
+            background-color: #b2001a;
+            color: #ffffff;
+            padding: 4px 12px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .image-container {
+            width: 45%;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Mantém o tamanho do quadro fixo para imagens e vídeos */
+        .image-container img, 
+        .image-container video {
+            width: 100%;
+            max-width: 380px;
+            height: 280px; 
+            border: 14px solid #ffffff;
+            border-bottom: 50px solid #ffffff;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+            transform: rotate(-2deg);
+            background-color: #f5f5f5;
+            object-fit: cover; /* Recorta proporcionalmente sem distorcer */
+        }
+
+        .event-block:nth-child(even) .image-container img,
+        .event-block:nth-child(even) .image-container video {
+            transform: rotate(2deg);
+        }
+
+        /* ANIMAÇÕES DE SCROLL RECONFIGURADAS (Para Imagens e Vídeos) */
+        @keyframes flyInLeft {
+            from {
+                transform: translateX(-150px) rotate(-10deg);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0) rotate(-2deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes flyInRight {
+            from {
+                transform: translateX(150px) rotate(10deg);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0) rotate(2deg);
+                opacity: 1;
+            }
+        }
+
+        .animate-left img, .animate-left video {
+            animation: flyInLeft linear both;
+            animation-timeline: view();
+            animation-range: entry 10% cover 40%;
+        }
+
+        .animate-right img, .animate-right video {
+            animation: flyInRight linear both;
+            animation-timeline: view();
+            animation-range: entry 10% cover 40%;
+        }
+
+        footer {
+            background-image: linear-gradient(rgba(26, 26, 26, 0.9), rgba(26, 26, 26, 0.9)), url('assets/background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-color: #1a1a1a;
+            padding: 60px 20px 60px 20px;
+            text-align: center;
+            margin-top: 60px;
+            width: 100%;
+            position: relative;
+            z-index: 10;
+        }
+
+        .credits {
+            color: #888888;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .color-fade-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 35px;
+            background: linear-gradient(to top, rgba(0, 36, 125, 0.5) 0%, rgba(0, 36, 125, 0) 100%);
+            pointer-events: none;
+            z-index: 999;
+            animation: slideUpLinear 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            opacity: 0;
+        }
+
+        @keyframes slideUpLinear {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before { left: 20px; transform: none; }
+            .event-block, .event-block:nth-child(even) { flex-direction: column; align-items: flex-start; gap: 30px; }
+            .comic-card, .image-container { width: 100%; padding-left: 20px; }
+            .image-container { justify-content: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bg-music" src="assets/backgroundmusic.mp3" loop></audio>
+
+    <div class="color-fade-bar"></div>
+
+    <header>
+        <h1>australia</h1>
+        <div class="tabs">
+            <button class="tab-btn active" onclick="openTab('futebol')">
+                <img src="assets/futebollogo.png" alt="" class="tab-icon">
+                Futebol
+            </button>
+            <button class="tab-btn" onclick="openTab('culinaria')">
+                <img src="assets/culinarialogo.png" alt="" class="tab-icon">
+                Culinária
+            </button>
+            <button class="tab-btn" onclick="openTab('cultura')">
+                <img src="assets/culturalogo.png" alt="" class="tab-icon">
+                Cultura
+            </button>
+        </div>
+    </header>
+
+    <!-- ABA FUTEBOL -->
+    <div id="futebol" class="tab-content active">
+        <div class="invitation-banner">
+            <h3>Venha Visitar Nosso Estande!</h3>
+            <p>Descubra mais do <span class="highlight">Futebol</span> australiano no nosso Estande. Esperamos por você no dia <span class="highlight">2 de julho</span>, no <span class="highlight">Colégio Adventista de Duque de Caxias</span> (Rua Professor José de Souza Herdy).</p>
+        </div>
+
+        <main class="timeline">
+            <div class="event-block">
+                <div class="comic-card">
+                    <span class="date">14/08/1880</span>
+                    <h2>As Origens no Século XIX</h2>
+                    <p>O primeiro registro oficial de uma partida de futebol na Austrália ocorreu em 1880, entre o Wanderers e o King's School. O esporte começou a fincar suas raízes em solo britânico ultramarino, disputando espaço com o críquete e o rúgbi local.</p>
+                </div>
+                <div class="image-container animate-right">
+                    <img src="assets/primeiro_time.jpg" alt="Um dos primeiros times da australia">
+                </div>
+            </div>
+
+            <div class="event-block">
+                <div class="comic-card">
+                    <span class="date">Alemanha 1974</span>
+                    <h2>A Estreia no Cenário Mundial</h2>
+                    <p>A primeira participação da Austrália em uma Copa do Mundo da FIFA aconteceu em 1974. Com um elenco formado majoritariamente por atletas amadores, os pioneers enfrentaram potências europeias e apresentaram a garra dos Socceroos para o planeta.</p>
+                </div>
+                <div class="image-container animate-left">
+                    <img src="assets/copa_1974.jpg" alt="Seleção Australiana na Copa de 1974">
+                </div>
+            </div>
+
+            <div class="event-block">
+                <div class="comic-card">
+                    <span class="date">Alemanha 2006</span>
+                    <h2>A Era de Ouro e Tim Cahill</h2>
+                    <p>Após uma classificação dramática nos pênaltis em 2005, os Socceroos retornaram à Copa em 2006. Sob o comando de Guus Hiddink e liderados pelo lendário Tim Cahill, a equipe alcançou as oitavas de final de forma histórica, caindo apenas diante da campeã Itália.</p>
+                </div>
+                <div class="image-container animate-right">
+                    <video src="assets/classificacao.mp4" autoplay loop muted playsinline></video>
+                </div>
+            </div>
+
+            <div class="event-block">
+                <div class="comic-card">
+                    <span class="date">Catar 2022</span>
+                    <h2>A Redenção no Deserto</h2>
+                    <p>Na Copa do Catar, a Austrália superou todas as expectativas ao vencer a Tunísia e a Dinamarca na fase de grupos. O elenco demonstrou uma organização defensiva implacável, igualando sua melhor campanha histórica ao alcançar o mata-mata internacional.</p>
+                </div>
+                <div class="image-container animate-left">
+                    <img src="assets/copa_2022.jpg" alt="Socceroos na Copa do Mundo de 2022">
+                </div>
+            </div>
+
+            <div class="event-block">
+                <div class="comic-card">
+                    <span class="date">Austrália 2023</span>
+                    <h2>As Matildas e o Legado em Casa</h2>
+                    <p>Co-sediando a Copa do Mundo Feminina da FIFA, a seleção feminina australiana (conhecida as As Matildas) parou o país. Elas alcançaram as semifinais e consolidaram o futebol de vez como um fenômeno de audiência e paixão popular na Oceania.</p>
+                </div>
+                <div class="image-container animate-right">
+                    <img src="assets/matildas_2023.jpg" alt="Matildas na Copa Feminina de 2023">
+                </div>
+            </div>
+
+            <div class="event-block">
+                <div class="comic-card">
+                    <span class="date">Copa 2026</span>
+                    <h2>O Desafio no Grupo D</h2>
+                    <p>A Austrália carimbou seu passaporte de forma direta nas Eliminatórias Asiáticas após uma grande campanha! Na Copa do Mundo de 2026, os Socceroos estão no Grupo D e encaram uma chave pesada: disputam a vaga contra os donos da casa (Estados Unidos), Paraguai e Turquia, buscando superar as oitavas de final.</p>
+                </div>
+                <div class="image-container animate-left">
+                    <img src="assets/copa_2026.jpg" alt="Socceroos rumo à Copa do Mundo de 2026">
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ABA CULINÁRIA -->
+    <div id="culinaria" class="tab-content">
+        <div class="invitation-banner">
+            <h3>Saboreie a Culinária Australiana no Nosso Estande!</h3>
+            <p>Saboreie mais da <span class="highlight">Culinária</span> australiana no nosso Estande. Esperamos por você no dia <span class="highlight">2 de julho</span>, no <span class="highlight">Colégio Adventista de Duque de Caxias</span> (Rua Professor José de Souza Herdy).</p>
+        </div>
+
+        <main class="timeline">
+            <div class="event-block">
+                <div class="comic-card">
+                    <span class="date">Tempero Essencial</span>
+                    <h2>O Toque do Molho Barbecue</h2>
+                    <p>O molho Barbecue (BBQ) é indispensável nas refeições australianas. Com seu sabor defumado e adocicado, ele acompanha desde os famosos hambúrgueres com beterraba até as carnes grelhadas do dia a dia, sendo considerado o condimento número um da cultura gastronômica local.</p>
+                </div>
+                <div class="image-container animate-right">
+                    <img src="assets/molho_barbecue.jpg" alt="Molho Barbecue Australiano">
+                </div>
+            </div>
+
+            <div class="event-block">
+                <div class="comic-card">
+                    <span class="date">Sobremesa Nacional</span>
+                    <h2>A Clássica Pavlova</h2>
+                    <p>Disputada orgulhosamente com a Nova Zelândia, a Pavlova é uma sobremesa leve e crocante feita de merengue, coberta com creme de leite batido e frutas frescas como kiwi, morango e maracujá. Homenageia a bailarina russa Anna Pavlova e reina nas festividades de fim de ano.</p>
+                </div>
+                <div class="image-container animate-left">
+                    <img src="assets/pavlova.jpg" alt="Sobremesa Pavlova">
+                </div>
+            </div>
+
+            <div class="event-block">
+                <div class="comic-card">
+                    <span class="date">Febre Urbana</span>
+                    <h2>A Cultura do Bubble Tea</h2>
+                    <p>Devido à forte influência da imigração asiática, o Bubble Tea se transformou em uma verdadeira paixão nacional nas grandes metrópoles australianas. Essa bebida refrescante à base de chá, leite e pérolas de tapioca ou boba que estouram na boca faz parte da rotina diária dos jovens do país.</p>
+                </div>
+                <div class="image-container animate-right">
+                    <img src="assets/bubble_tea.jpg" alt="Bubble Tea na Austrália">
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ABA CULTURA -->
+    <div id="cultura" class="tab-content">
+        <div class="invitation-banner">
+            <h3>Explore a Cultura Australiana no Nosso Estande!</h3>
+            <p>Veja mais da <span class="highlight">Cultura</span> australiana no nosso Estande. Esperamos por você no dia <span class="highlight">2 de julho</span>, no <span class="highlight">Colégio Adventista de Duque de Caxias</span> (Rua Professor José de Souza Herdy).</p>
+        </div>
+
+        <main class="timeline">
+            <div class="event-block">
+                <div class="comic-card">
+                    <span class="date">Ancestralidade</span>
+                    <h2>A Cultura Aborígene</h2>
+                    <p>A rica herança cultural dos povos originários da Austrália molda a identidade do país há dezenas de milhares de anos. Suas tradições artísticas, histórias do "Tempo do Sonho" e profunda conexão com a preservação da terra permanecem como a base de sua história.</p>
+                </div>
+                <div class="image-container animate-right">
+                    <img id="img-aborigene" src="assets/aborigene1.jpg" alt="Cultura Aborígene">
+                </div>
+            </div>
+
+            <div class="event-block">
+                <div class="comic-card">
+                    <span class="date">Estilo de Vida</span>
+                    <h2>O Esporte e a Natureza</h2>
+                    <p>A cultura costeira e a paixão pelas atividades ao ar livre definem a Austrália. O surf nas praias icônicas de Byron Bay ou Gold Coast e a forte dedicação aos esportes coletivos refletem o espírito alegre, competitivo e acolhedor do povo.</p>
+                </div>
+                <div class="image-container animate-left">
+                    <img id="img-estilo" src="assets/estilo_vida1.jpg" alt="Surf e Estilo de Vida Australiano">
+                </div>
+            </div>
+
+            <div class="event-block">
+                <div class="comic-card">
+                    <span class="date">Símbolos</span>
+                    <h2>Identidade Visual e Fauna Única</h2>
+                    <p>O canguru e a ema, animais representados no brasão de armas australiano, foram escolhidos por um motivo simbólico muito forte: ambos são animais que não conseguem andar facilmente para trás, representando um país focado em sempre progredir.</p>
+                </div>
+                <div class="image-container animate-right">
+                    <img id="img-simbolos" src="assets/fauna_simbolos1.jpg" alt="Símbolos da Fauna Australiana">
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <div class="credits">feito por Mauricio Alves de Castro Neto</div>
+    </footer>
+
+    <script>
+        const music = document.getElementById('bg-music');
+        music.volume = 0.25;
+
+        window.addEventListener('click', () => {
+            if (music.paused) {
+                music.play().catch(err => console.log("Áudio aguardando interação inicial."));
+            }
+        }, { once: true });
+
+        function openTab(tabId) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            
+            if (event && event.currentTarget) {
+                event.currentTarget.classList.add('active');
+            }
+        }
+
+        // Carrossel 1: Aborígene
+        const imagensAborigene = [
+            'assets/aborigene1.jpg',
+            'assets/aborigene2.jpg',
+            'assets/aborigene3.jpg'
+        ];
+        let idxAborigene = 0;
+        const imgAborigeneEl = document.getElementById('img-aborigene');
+
+        setInterval(() => {
+            idxAborigene = (idxAborigene + 1) % imagensAborigene.length;
+            imgAborigeneEl.src = imagensAborigene[idxAborigene];
+        }, 3000);
+
+        // Carrossel 2: Estilo de Vida
+        const imagensEstilo = [
+            'assets/estilo_vida1.jpg',
+            'assets/estilo_vida2.jpg',
+            'assets/estilo_vida3.jpg'
+        ];
+        let idxEstilo = 0;
+        const imgEstiloEl = document.getElementById('img-estilo');
+
+        setInterval(() => {
+            idxEstilo = (idxEstilo + 1) % imagensEstilo.length;
+            imgEstiloEl.src = imagensEstilo[idxEstilo];
+        }, 3000);
+
+        // Carrossel 3: Símbolos
+        const imagensSimbolos = [
+            'assets/fauna_simbolos1.jpg',
+            'assets/fauna_simbolos2.jpg',
+            'assets/fauna_simbolos3.jpg'
+        ];
+        let idxSimbolos = 0;
+        const imgSimbolosEl = document.getElementById('img-simbolos');
+
+        setInterval(() => {
+            idxSimbolos = (idxSimbolos + 1) % imagensSimbolos.length;
+            imgSimbolosEl.src = imagensSimbolos[idxSimbolos];
+        }, 3000);
+    </script>
+
+</body>
+</html>
